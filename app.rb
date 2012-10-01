@@ -2,7 +2,7 @@ require 'bundler'
 Bundler.require(:default)
 
 require 'logger'
-require 'active_record'
+require 'erb'
 
 require 'securerandom'
 
@@ -45,6 +45,12 @@ class User < ActiveRecord::Base
   def random_tag
     tags = JSON.parse(json_tags) rescue []
     tags.sample
+  end
+
+  def send_reminder!
+    template = File.read(File.join(settings.views, 'mail.erb'))
+    text = ERB.new(template).result(self.instance_eval { binding })
+    raise text.inspect
   end
 end
 
