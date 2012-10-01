@@ -35,9 +35,12 @@ task :send_scheduled_reminders => :environment do
   end
 
   if u.updated_at < 180.days.ago
-    puts "time to send a reminder!"
-    do_it!
-    u.touch
+    begin
+      puts "time to send a reminder!"
+      do_it!
+    ensure
+      u.touch
+    end
   end
   
 end
