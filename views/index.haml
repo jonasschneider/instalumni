@@ -1,0 +1,82 @@
+%h1{ style: 'font-size: 300%' }
+  Hey Jonas!
+  %br
+  %small{ style: 'font-size: 50%; color: #777' } Willkommen zurück zu deinen Erinnerungen.
+
+%hr
+
+%h2
+  Was treibst du so?
+  %small Deine eigene Zeitkapsel.
+
+%p
+  Lass' doch mal von dir hören.
+  Wenn du willst, kannst du hier eine kurze Statusmeldung verfassen.
+  In vielen Jahren wirst du dich darüber freuen.   
+
+%form
+  %textarea{ style: 'width: 100%;box-sizing:border-box', cols: 100, rows: 3, placeholder: 'Mr. und Mrs. Dursley im Ligusterweg Nummer 4 waren stolz darauf, ganz und gar normal zu sein, sehr stolz sogar.' }
+
+  %input.btn.btn-small.btn-primary.pull-right{ type: 'submit', value: 'Speichern' }
+
+
+
+.clearfix
+
+%hr
+
+%h2
+  Stimmt das noch?
+  %small Umzug, Hochzeit, etc.
+
+%dl
+  %dt Addresse
+  %dd Geranienstraße 7
+
+  %dt PLZ &amp; Stadt
+  %dd 76185 Karlsruhe
+
+  %dt Land
+  %dd Deutschland
+
+  %dt Telefon
+  %dd 0721 844758
+
+  %dt Email-Addresse
+  %dd mail@jonasschneider.com
+
+Du kannst
+= succeed '.' do
+  %a{ href: '/edit' } deine Kontaktdaten ändern
+
+
+%hr
+
+%h4.muted Die guten alten Zeiten.
+
+%p.muted
+  Weißt du noch, damals...
+  du warst Meister im
+  = succeed ',' do
+    %em Trolol
+
+  und vielleicht bist du jetzt
+  = succeed '.' do
+    %em Trolol
+
+  Damals nach dem Abi
+  = succeed '.' do
+    %em Trolol
+
+  Ohne
+  %em Trolol
+  hättest du das Abi aber nicht geschafft.
+
+  Ach, und übrigens:
+  %em Trolol
+
+%p.muted 
+  %strong
+    Ein zufälliger Kommentar über dich aus der Abizeitung:
+  %br
+  %em om nom nom
