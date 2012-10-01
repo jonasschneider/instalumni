@@ -47,6 +47,15 @@
   %dt Email-Addresse
   %dd= @user.email
 
+  - if @user.custom1_name && !@user.custom1_name.blank?
+    %dt= @user.custom1_name
+    %dd= @user.custom1_value
+
+  - if @user.custom2_name && !@user.custom2_name.blank?
+    %dt= @user.custom2_name
+    %dd= @user.custom2_value
+
+
 Du kannst
 = succeed '.' do
   %a{ href: '/edit' } deine Kontaktdaten ändern

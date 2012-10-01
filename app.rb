@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   validates_presence_of :name, :original_name, :email, :auth_token
   validates :uid, presence: true, uniqueness: true
 
+  attr_accessible :name, :address, :zip_city, :country, :phone, :email, :custom1_name, :custom1_value, :custom2_name, :custom2_value
+
   before_validation on: :create do
     self.auth_token = SecureRandom.hex
   end
@@ -53,10 +55,17 @@ helpers do
 end
 
 get '/' do
-  #raise User.all.inspect
   haml :index
 end
 
 get '/edit' do
   haml :edit
+end
+
+post '/update' do
+  if @user.update_attributes(params[:user])
+    redirect '/'
+  else
+    haml :edit
+  end
 end

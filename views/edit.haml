@@ -1,4 +1,7 @@
-%form.form-horizontal
+- if @user.errors.any?
+  .alert.alert-error= @user.errors.full_messages.to_sentence
+
+%form.form-horizontal{ action: '/update', method: 'post' }
 
   %fieldset
     %legend
@@ -8,38 +11,38 @@
     .control-group
       %label.control-label Name
       .controls
-        %input.input-large{ type: 'text', name: 'name', value: 'Jonas Schneider' }
+        %input.input-large{ type: 'text', name: 'user[name]', value: @user.name }
 
     %hr
 
     .control-group
       %label.control-label Addresse
       .controls
-        %input.input-large{ type: 'text', name: 'name', value: 'Jonas Schneider' }
+        %input.input-large{ type: 'text', name: 'user[address]', value: @user.address }
 
 
     .control-group
       %label.control-label PLZ &amp; Stadt
       .controls
-        %input.input-large{ type: 'text', name: 'name', value: 'Jonas Schneider' }
+        %input.input-large{ type: 'text', name: 'user[zip_city]', value: @user.zip_city }
         
 
     .control-group
       %label.control-label Land
       .controls
-        %input.input-large{ type: 'text', name: 'name', value: 'Jonas Schneider' }
+        %input.input-large{ type: 'text', name: 'user[country]', value: @user.country }
     
     %hr
     
     .control-group
       %label.control-label Telefonnummer
       .controls
-        %input.input-large{ type: 'text', name: 'name', value: 'Jonas Schneider' }
+        %input.input-large{ type: 'text', name: 'user[phone]', value: @user.phone }
 
     .control-group
       %label.control-label Email-Addresse
       .controls
-        %input.input-large{ type: 'text', name: 'name', value: 'Jonas Schneider' }
+        %input.input-large{ type: 'text', name: 'user[email]', value: @user.email }
         %p.help-block Bitte achte darauf, dass deine Email-Addresse richtig ist! Wenn du hier etwas falsches einträgst, kannst du dich nicht mehr anmelden.
 
 
@@ -48,15 +51,15 @@
 
     .control-group
       .control-label
-        %input.input-small{ type: 'text', name: 'name', placeholder: 'z.b. Skype', style: 'margin-top:-5px' }
+        %input.input-small{ type: 'text', name: 'user[custom1_name]', placeholder: 'z.b. Skype', style: 'margin-top:-5px', value: @user.custom1_name }
       .controls
-        %input.input-large{ type: 'text', name: 'name', value: 'Jonas Schneider' }
+        %input.input-large{ type: 'text', name: 'user[custom1_value]', value: @user.custom1_value }
 
     .control-group
       .control-label
-        %input.input-small{ type: 'text', name: 'name', placeholder: 'z.b. ICQ', style: 'margin-top:-5px' }
+        %input.input-small{ type: 'text', name: 'user[custom2_name]', placeholder: 'z.b. ICQ', style: 'margin-top:-5px', value: @user.custom2_name }
       .controls
-        %input.input-large{ type: 'text', name: 'name', value: 'Jonas Schneider' }
+        %input.input-large{ type: 'text', name: 'user[custom2_value]', value: @user.custom2_value }
 
   .form-actions
     %input.btn.btn-primary{ type: 'submit', value: 'Speichern' }
