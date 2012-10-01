@@ -52,3 +52,14 @@ task :send_scheduled_reminders => :environment do
   eta = (u.updated_at - 180.days.ago) / 1.day
   puts "about #{eta} days until next reminder"
 end
+
+task :keep_heroku_awake do
+  require 'open-uri'
+
+  begin
+    Timeout.timeout(15) do
+      open('https://instalumni.herokuapp.com/').read
+    end
+  rescue Exception => e
+  end
+end
