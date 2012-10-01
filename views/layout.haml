@@ -10,6 +10,9 @@
       %h1
         /%small Abi Wan Kenobi — Möge G8 mit dir sein!
         Abi 2012 am Fichte-Gymnasium Karlsruhe
+    - flash.each do |type, value|
+      .alert{ :class => "alert-#{type.to_s}" }
+        = value 
 
     %hr
     = yield

@@ -16,10 +16,16 @@
   Wenn du willst, kannst du hier eine kurze Statusmeldung verfassen.
   In vielen Jahren wirst du dich darüber freuen.   
 
-%form
-  %textarea{ style: 'width: 100%;box-sizing:border-box', cols: 100, rows: 3, placeholder: 'Mr. und Mrs. Dursley im Ligusterweg Nummer 4 waren stolz darauf, ganz und gar normal zu sein, sehr stolz sogar.' }
+%form{ action: '/posts', method: 'post' }
+  %textarea{ name: 'post[body]', style: 'width: 100%;box-sizing:border-box', cols: 100, rows: 3, placeholder: 'Mr. und Mrs. Dursley im Ligusterweg Nummer 4 waren stolz darauf, ganz und gar normal zu sein, sehr stolz sogar.' }
 
-  %input.btn.btn-small.btn-primary.pull-right{ type: 'submit', value: 'Speichern' }
+  .pull-right
+    - if @user.posts.count > 0
+      %small.muted
+        Du hast bisher
+        == #{@user.posts.count} Statusmeldung#{@user.posts.count != 1 ? 'en' : ''}
+        verfasst.
+    %input.btn.btn-small.btn-primary{ type: 'submit', value: 'Speichern' }
 
 
 
@@ -31,6 +37,8 @@
   Stimmt das noch?
   %small Umzug, Hochzeit, etc.
 
+- if @user.address.nil? || @user.address.empty?
+  .alert.alert-warning{ style: 'opacity: 0.6' } Bitte trage deine Addresse ein.
 %dl
   %dt Addresse
   %dd= e @user.address

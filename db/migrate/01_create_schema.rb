@@ -32,7 +32,7 @@ class CreateSchema < ActiveRecord::Migration
     end
 
     create_table :posts do |t|
-      t.string :user_uid
+      t.integer :user_id
       t.text :body
 
       t.timestamps
