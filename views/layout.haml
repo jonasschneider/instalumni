@@ -20,4 +20,8 @@
     %hr
     %footer
       %p.muted.pull-right{ style: 'text-align: right' }
-        instALUMNI von Jonas Schneider und Lukas Kramer.
+        instALUMNI von
+        %a{ href: 'mailto:mail@jonasschneider.com' } Jonas Schneider
+        und
+        = succeed '.' do
+          %a{ href: 'mailto:lu@0x83.eu' } Lukas Kramer
