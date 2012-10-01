@@ -37,7 +37,7 @@ end
 class Post < ActiveRecord::Base
   belongs_to :user
   attr_accessible :body
-  validates_presence_of :body
+  validates_presence_of :body, :user
 end
 
 before do
