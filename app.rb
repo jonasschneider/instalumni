@@ -12,6 +12,19 @@ set :session_secret, ENV["SESSION_SECRET"]
 
 ActiveRecord::Base.establish_connection(ENV["DATABASE_URL"])
 
+Pony.options = {
+  :via => :smtp,
+  :via_options => {
+    :address => 'smtp.sendgrid.net',
+    :port => '587',
+    :domain => 'heroku.com',
+    :user_name => ENV['SENDGRID_USERNAME'],
+    :password => ENV['SENDGRID_PASSWORD'],
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
+}
+
 class User < ActiveRecord::Base
   validates_presence_of :name, :original_name, :email, :auth_token
   validates :uid, presence: true, uniqueness: true
@@ -25,6 +38,7 @@ class User < ActiveRecord::Base
   end
 
   def firstname
+    return "Nhung" if uid == 'phanthsa' # ;)
     name.split(/\s+/).first rescue ''
   end
 
