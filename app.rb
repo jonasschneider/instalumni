@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require 'bundler'
 Bundler.require(:default)
 
@@ -48,9 +49,12 @@ class User < ActiveRecord::Base
   end
 
   def send_reminder!
+    return if email.nil? or email.blank?
+
     template = File.read(File.join(settings.views, 'mail.erb'))
-    text = ERB.new(template).result(self.instance_eval { binding })
-    raise text.inspect
+    body = ERB.new(template).result(self.instance_eval { binding })
+    subject = "[instALUMNI] Halbjährliche Erinnerung: Dein Fichte-Alumniportal!"
+    Pony.mail(:to => self.email, :from => 'no-rely@example.org', :subject => subject, :body => body)
   end
 end
 

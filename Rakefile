@@ -23,14 +23,19 @@ task :import => :environment do
 end
 
 task :send_scheduled_reminders => :environment do
-  u = User.where(uid: 'schneijo')
+  u = User.find_by_uid('dummy')
+  raise "could not find dummy user" unless u
 
   def do_it!
     users = User.where(uid: 'schneijo')
     users.each do |u|
-      u.send_reminder!
-    rescue Exception => e
-      puts "failed sending to #{u.uid} <#{u.email}>: #{e.inspect}"
+      begin
+        if u.uid != 'dummy'
+          u.send_reminder!
+        end
+      rescue Exception => e
+        puts "failed sending to #{u.uid} <#{u.email}>: #{e.inspect}"
+      end
     end
   end
 
@@ -38,9 +43,12 @@ task :send_scheduled_reminders => :environment do
     begin
       puts "time to send a reminder!"
       do_it!
+      puts "done sending"
     ensure
       u.touch
     end
   end
-  
+
+  eta = (u.updated_at - 180.days.ago) / 1.day
+  puts "about #{eta} days until next reminder"
 end
