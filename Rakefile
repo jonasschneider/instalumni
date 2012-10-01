@@ -1,3 +1,7 @@
+task :environment do
+  require './app'
+end
+
 namespace :db do
   desc "Migrate the database"
   task(:migrate => :environment) do

@@ -1,5 +1,7 @@
 %h1{ style: 'font-size: 300%' }
-  Hey Jonas!
+  Hallo,
+  = succeed '.' do
+    = e @user.firstname
   %br
   %small{ style: 'font-size: 50%; color: #777' } Willkommen zurück zu deinen Erinnerungen.
 
@@ -31,19 +33,19 @@
 
 %dl
   %dt Addresse
-  %dd Geranienstraße 7
+  %dd= e @user.address
 
   %dt PLZ &amp; Stadt
-  %dd 76185 Karlsruhe
+  %dd= e @user.zip_city
 
   %dt Land
-  %dd Deutschland
+  %dd= e @user.country
 
   %dt Telefon
-  %dd 0721 844758
+  %dd= e @user.phone
 
   %dt Email-Addresse
-  %dd mail@jonasschneider.com
+  %dd= @user.email
 
 Du kannst
 = succeed '.' do
@@ -58,25 +60,25 @@ Du kannst
   Weißt du noch, damals...
   du warst Meister im
   = succeed ',' do
-    %em Trolol
+    %em= e @user.meta_meister
 
   und vielleicht bist du jetzt
   = succeed '.' do
-    %em Trolol
+    %em= e @user.meta_zukunft
 
   Damals nach dem Abi
   = succeed '.' do
-    %em Trolol
+    %em= e @user.meta_nachabi
 
   Ohne
-  %em Trolol
+  %em= e @user.meta_lebenswichtig
   hättest du das Abi aber nicht geschafft.
 
   Ach, und übrigens:
-  %em Trolol
+  %em= e @user.meta_nachruf
 
 %p.muted 
   %strong
     Ein zufälliger Kommentar über dich aus der Abizeitung:
   %br
-  %em om nom nom
+  %em= e @user.random_tag

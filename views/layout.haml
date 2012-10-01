@@ -2,18 +2,19 @@
 %head
   %link{ rel: 'stylesheet', href: '/assets/application.css'}
 
-.container
-  #header
-    %a{ href: '/' }
-      %img{ src: '/assets/logo.png', alt: 'instALUMNI', style: 'margin:auto;display:block; ' }
-    %h1
-      /%small Abi Wan Kenobi — Möge G8 mit dir sein!
-      Abi 2012 am Fichte-Gymnasium Karlsruhe
+%body
+  .container
+    #header
+      %a{ href: '/' }
+        %img{ src: '/assets/logo.png', alt: 'instALUMNI', style: 'margin:auto;display:block; ' }
+      %h1
+        /%small Abi Wan Kenobi — Möge G8 mit dir sein!
+        Abi 2012 am Fichte-Gymnasium Karlsruhe
 
-  %hr
-  = yield
+    %hr
+    = yield
 
-  %hr
-  %footer
-    %p.muted.pull-right{ style: 'text-align: right' }
-      instALUMNI von Jonas Schneider und Lukas Kramer.
+    %hr
+    %footer
+      %p.muted.pull-right{ style: 'text-align: right' }
+        instALUMNI von Jonas Schneider und Lukas Kramer.

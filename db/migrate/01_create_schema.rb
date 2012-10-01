@@ -1,6 +1,6 @@
 class CreateSchema < ActiveRecord::Migration
   def up
-    create_table :users, primary_key: 'uid' do |t|
+    create_table :users do |t|
       t.string :uid
 
       t.string :name
@@ -23,6 +23,8 @@ class CreateSchema < ActiveRecord::Migration
       t.string :meta_nachabi
       t.string :meta_lebenswichtig
       t.string :meta_nachruf
+
+      t.string :auth_token
       
       t.text :json_tags
 
