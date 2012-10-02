@@ -6,6 +6,12 @@ des Abiturjahrgangs 2012 des Fichte-Gymnasiums Karlsruhe.
 Was hat sich bei dir so getan in den letzten sechs Monaten?
 Haben sich deine Adresse, Telefonnummer oder andere Daten geändert?
 
+Adresse:         <%= address.nil? || address.empty? ? '(leer)' : address %>
+PLZ & Stadt:     <%= zip_city.nil? || zip_city.empty? ? '(leer)' : zip_city %>
+Land:            <%= country.nil? || country.empty? ? '(leer)' : country %>
+Telefon:         <%= phone.nil? || phone.empty? ? '(leer)' : phone %>
+Email-Addresse:  <%= email.nil? || email.empty? ? '(leer)' : email %>
+<% if custom1_name && !custom1_name.blank? %><%= "#{custom1_name}:".ljust(17) + custom1_value + "\n" %><% end %><% if custom2_name && !custom2_name.blank? %><%= "#{custom2_name}:".ljust(17) + custom2_value + "\n" %><% end %>
 Schau doch mal auf deiner Seite vorbei. Dein persönlicher Login-Link lautet:
 
 https://instalumni.herokuapp.com/?auth_token=<%= auth_token %>
