@@ -9,5 +9,6 @@ map '/assets' do
 end
 
 map '/' do
+  use ActiveRecord::ConnectionAdapters::ConnectionManagement
   run Sinatra::Application
 end
