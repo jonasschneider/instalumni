@@ -63,6 +63,15 @@ class User < ActiveRecord::Base
     subject = "[instALUMNI] Halbjährliche Erinnerung: Dein Fichte-Alumniportal!"
     Pony.mail(:to => self.email, :from => 'js.sokrates@gmail.com', :subject => subject, :body => body)
   end
+
+  def send_welcome!
+    return if email.nil? or email.blank?
+
+    template = File.read(File.join(settings.views, 'welcome.erb'))
+    body = ERB.new(template).result(self.instance_eval { binding })
+    subject = "[instALUMNI] Halbjährliche Erinnerung: Dein Fichte-Alumniportal!"
+    Pony.mail(:to => self.email, :from => 'js.sokrates@gmail.com', :subject => subject, :body => body)
+  end
 end
 
 class Post < ActiveRecord::Base

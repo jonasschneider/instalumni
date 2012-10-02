@@ -27,7 +27,8 @@ task :send_scheduled_reminders => :environment do
   raise "could not find dummy user" unless u
 
   def do_it!
-    users = User.where(uid: 'schneijo')
+    #users = User.where(uid: 'schneijo')
+    Users = User.all
     users.each do |u|
       begin
         if u.uid != 'dummy'
@@ -57,7 +58,7 @@ task :keep_heroku_awake do
   require 'open-uri'
 
   begin
-    Timeout.timeout(15) do
+    Timeout.timeout(10) do
       open('https://instalumni.herokuapp.com/').read
     end
   rescue Exception => e
