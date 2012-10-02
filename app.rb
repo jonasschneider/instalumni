@@ -69,7 +69,7 @@ class User < ActiveRecord::Base
 
     template = File.read(File.join(settings.views, 'welcome.erb'))
     body = ERB.new(template).result(self.instance_eval { binding })
-    subject = "[instALUMNI] Halbjährliche Erinnerung: Dein Fichte-Alumniportal!"
+    subject = "[instALUMNI] Dein Fichte-Alumniportal instALUMNI startet!"
     Pony.mail(:to => self.email, :from => 'js.sokrates@gmail.com', :subject => subject, :body => body)
   end
 end
