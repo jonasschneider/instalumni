@@ -1,27 +1,29 @@
 !!!5
-%head
-  %link{ rel: 'stylesheet', href: '/assets/application.css'}
+%html
+  %head
+    %title instALUMNI
+    %link{ rel: 'stylesheet', href: '/assets/application.css'}
 
-%body
-  .container
-    #header
-      %a{ href: '/' }
-        %img{ src: '/assets/logo.png', alt: 'instALUMNI', style: 'margin:auto;display:block; ' }
-      %h1
-        /%small Abi Wan Kenobi — Möge G8 mit dir sein!
-        Abi 2012 am Fichte-Gymnasium Karlsruhe
-    - flash.each do |type, value|
-      .alert{ :class => "alert-#{type.to_s}" }
-        = value 
+  %body
+    .container
+      #header
+        %a{ href: '/' }
+          %img{ src: '/assets/logo.png', alt: 'instALUMNI', style: 'margin:auto;display:block; ' }
+        %h1
+          /%small Abi Wan Kenobi — Möge G8 mit dir sein!
+          Abi 2012 am Fichte-Gymnasium Karlsruhe
+      - flash.each do |type, value|
+        .alert{ :class => "alert-#{type.to_s}" }
+          = value 
 
-    %hr
-    = yield
+      %hr
+      = yield
 
-    %hr
-    %footer
-      %p.muted.pull-right{ style: 'text-align: right' }
-        instALUMNI von
-        %a{ href: 'mailto:mail@jonasschneider.com' } Jonas Schneider
-        und
-        = succeed '.' do
-          %a{ href: 'mailto:lu@0x83.eu' } Lukas Kramer
+      %hr
+      %footer
+        %p.muted.pull-right{ style: 'text-align: right' }
+          instALUMNI von
+          %a{ href: 'mailto:mail@jonasschneider.com' } Jonas Schneider
+          und
+          = succeed '.' do
+            %a{ href: 'mailto:lu@0x83.eu' } Lukas Kramer
