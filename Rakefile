@@ -28,7 +28,7 @@ task :send_scheduled_reminders => :environment do
 
   def do_it!
     #users = User.where(uid: 'schneijo')
-    Users = User.all
+    users = User.all
     users.each do |u|
       begin
         if u.uid != 'dummy'

@@ -5,6 +5,8 @@ gem 'sprockets'
 gem 'haml'
 gem 'sass'
 
+gem 'thin'
+
 gem 'sinatra-flash'
 
 gem 'pony'
