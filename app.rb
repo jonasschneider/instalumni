@@ -34,8 +34,11 @@ class User < ActiveRecord::Base
 
   attr_accessible :name, :address, :zip_city, :country, :phone, :email, :custom1_name, :custom1_value, :custom2_name, :custom2_value
 
-  before_validation on: :create do
+  before_validation :regenerate_token!, on: :create
+
+  def regenerate_token!
     self.auth_token = SecureRandom.hex
+    save! unless new_record?
   end
 
   def firstname
@@ -46,6 +49,10 @@ class User < ActiveRecord::Base
   def random_tag
     tags = JSON.parse(json_tags) rescue []
     tags.sample
+  end
+
+  def meta_meister
+    read_attribute(:meta_meister).gsub(/\(IM!\)\s?/, "")
   end
 
   def send_reminder!
