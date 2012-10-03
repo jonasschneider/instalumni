@@ -16,7 +16,7 @@
     %hr
 
     .control-group
-      %label.control-label Adresse
+      %label.control-label Straße/Hausnummer
       .controls
         %input.input-large{ type: 'text', name: 'user[address]', value: @user.address }
 
@@ -32,12 +32,19 @@
       .controls
         %input.input-large{ type: 'text', name: 'user[country]', value: @user.country }
     
-    %hr
-    
     .control-group
       %label.control-label Telefonnummer
       .controls
         %input.input-large{ type: 'text', name: 'user[phone]', value: @user.phone }
+
+    .control-group
+      .controls
+        .input-large
+          %input{ type: 'hidden', name: 'user[public_address]', value: '0' }
+          %input{ type: 'checkbox', name: 'user[public_address]', value: '1', checked: @user.public_address==true ? 'checked' : nil }
+          %small Andere dürfen meine genaue Adresse &amp; Telefonnummer sehen
+
+    %hr
 
     .control-group
       %label.control-label Email-Addresse

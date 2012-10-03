@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
 
   has_many :posts
 
-  attr_accessible :name, :address, :zip_city, :country, :phone, :email, :custom1_name, :custom1_value, :custom2_name, :custom2_value
+  attr_accessible :name, :address, :zip_city, :country, :phone, :email, :custom1_name, :custom1_value, :custom2_name, :custom2_value, :public_address
 
   before_validation :regenerate_token!, on: :create
 
