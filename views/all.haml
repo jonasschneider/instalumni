@@ -9,14 +9,25 @@
     var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
     var bounds = new google.maps.LatLngBounds();
 
-    locations = [#{User.all.map{|u|"new google.maps.LatLng(#{u.latitude},#{u.longitude})" if u.latitude.present? && u.longitude.present?}.compact.join(', ')}]
+    locations = [#{User.all.map{|u|"[#{u.name.to_json}, new google.maps.LatLng(#{u.latitude},#{u.longitude})]" if u.latitude.present? && u.longitude.present?}.compact.join(', ')}]
     for(i in locations) {
+      name = locations[i][0]
+      loc = locations[i][1]
       marker = new google.maps.Marker({
         map: map,
         animation: google.maps.Animation.DROP,
-        position: locations[i]
+        position: loc
       });
-      bounds.extend(locations[i]);
+      bounds.extend(loc);
+
+      var infowindow = new google.maps.InfoWindow({
+          content: name
+      });
+
+      google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map,marker);
+      });
+
     }
     map.fitBounds (bounds);
   }
