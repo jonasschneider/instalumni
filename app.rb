@@ -103,6 +103,10 @@ get '/' do
   haml :index
 end
 
+get '/all' do
+  haml :all
+end
+
 get '/edit' do
   haml :edit
 end
