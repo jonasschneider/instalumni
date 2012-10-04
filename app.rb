@@ -78,7 +78,11 @@ class User < ActiveRecord::Base
   after_validation :geocode
 
   def geocode_address
-    [zip_city ? zip_city.gsub(/\d/, '') : nil, country].compact.join(", ")
+    [city, country].compact.join(", ")
+  end
+
+  def city
+    zip_city ? zip_city.gsub(/\d/, '').strip : nil
   end
 end
 

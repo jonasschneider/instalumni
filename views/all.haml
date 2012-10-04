@@ -11,9 +11,13 @@
           %dt Adresse
           %dd= e user.address
 
-        %dt PLZ &amp; Stadt
-        %dd= e user.zip_city
+          %dt PLZ &amp; Stadt
+          %dd= e user.zip_city
 
+        - else
+          %dt Stadt
+          %dd= e user.city
+        
         - if user.country.present?
           %dt Land
           %dd= e user.country
