@@ -9,26 +9,26 @@
       %dl
         - if user.public_address?
           %dt Adresse
-          %dd= e @user.address
+          %dd= e user.address
 
         %dt PLZ &amp; Stadt
-        %dd= e @user.zip_city
+        %dd= e user.zip_city
 
         - if user.country.present?
           %dt Land
-          %dd= e @user.country
+          %dd= e user.country
 
         - if user.public_address?
           %dt Telefon
-          %dd= e @user.phone
+          %dd= e user.phone
 
         %dt Email-Addresse
-        %dd= @user.email
+        %dd= user.email
 
-        - if @user.custom1_name && !@user.custom1_name.blank?
-          %dt= @user.custom1_name
-          %dd= @user.custom1_value
+        - if user.custom1_name && !user.custom1_name.blank?
+          %dt= user.custom1_name
+          %dd= user.custom1_value
 
-        - if @user.custom2_name && !@user.custom2_name.blank?
-          %dt= @user.custom2_name
-          %dd= @user.custom2_value
+        - if user.custom2_name && !user.custom2_name.blank?
+          %dt= user.custom2_name
+          %dd= user.custom2_value
