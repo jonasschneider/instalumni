@@ -6,28 +6,24 @@
   - if user.zip_city.present?
     .well
       %h3= user.name
-      %dl
+      
+      %p
         - if user.public_address?
-          %dt Adresse
-          %dd= e user.address
+          = e user.address
+          %br
+        = e user.zip_city
 
-          %dt PLZ &amp; Stadt
-          %dd= e user.zip_city
-
-        - else
-          %dt Stadt
-          %dd= e user.city
-        
         - if user.country.present?
-          %dt Land
-          %dd= e user.country
+          ,
+          = e user.country
 
+      %p
+        %a{ href: "mailto:#{user.email}" }= user.email
+      
+      %dl
         - if user.public_address?
           %dt Telefon
           %dd= e user.phone
-
-        %dt Email-Addresse
-        %dd= user.email
 
         - if user.custom1_name && !user.custom1_name.blank?
           %dt= user.custom1_name
