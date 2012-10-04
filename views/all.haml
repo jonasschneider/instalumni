@@ -1,43 +1,34 @@
-<script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
-:javascript
-  var map;
+= haml :map
 
-  function initialize() {
-    var mapOptions = {
-      zoom: 1,
-      center: new google.maps.LatLng(50, 8),
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
-    map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-    var bounds = new google.maps.LatLngBounds();
+%hr
 
-    locations = [#{User.all.map{|u|"[#{u.name.to_json}, new google.maps.LatLng(#{u.latitude},#{u.longitude})]" if u.latitude.present? && u.longitude.present?}.compact.join(', ')}]
-    for(i in locations) {
-      name = locations[i][0]
-      loc = locations[i][1]
-      bounds.extend(loc);
-      
-      addMarker(name, loc)
+- User.all.each do |user|
+  - if user.zip_city.present?
+    .well
+      %h3= user.name
+      %dl
+        - if user.public_address?
+          %dt Adresse
+          %dd= e @user.address
 
-    }
-    map.fitBounds (bounds);
+        %dt PLZ &amp; Stadt
+        %dd= e @user.zip_city
 
-  }
+        - if user.country.present?
+          %dt Land
+          %dd= e @user.country
 
-  function addMarker(name, loc) {
-    var marker = new google.maps.Marker({
-      map: map,
-      animation: google.maps.Animation.DROP,
-      position: loc
-    });
+        - if user.public_address?
+          %dt Telefon
+          %dd= e @user.phone
 
-    var infowindow = new google.maps.InfoWindow({
-        content: name
-    });
+        %dt Email-Addresse
+        %dd= @user.email
 
-    google.maps.event.addListener(marker, 'click', function() {
-      infowindow.open(map,marker);
-    });
-  }
-  window.addEventListener('load', initialize)
-<div id="map_canvas" style="height:400px;width:150%;margin-left:-25%"></div>
+        - if @user.custom1_name && !@user.custom1_name.blank?
+          %dt= @user.custom1_name
+          %dd= @user.custom1_value
+
+        - if @user.custom2_name && !@user.custom2_name.blank?
+          %dt= @user.custom2_name
+          %dd= @user.custom2_value
