@@ -2,7 +2,7 @@
 
 %hr
 
-- User.all.each do |user|
+- User.order(:uid).each do |user|
   - if user.zip_city.present?
     .well
       %h3= user.name
