@@ -11,7 +11,9 @@
         - if user.public_address?
           = e user.address
           %br
-        = e user.zip_city
+          = e user.zip_city
+        - else
+          = e user.city
 
         - if user.country.present?
           %br
