@@ -1,3 +1,9 @@
+
+require 'rake'
+require 'bundler'
+Bundler.setup
+load 'tasks/geocoder.rake'
+
 task :environment do
   require './app'
 end

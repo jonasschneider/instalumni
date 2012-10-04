@@ -1,48 +1,24 @@
 <script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
 :javascript
-  var geocoder;
-  var map;
-  var bounds;
-  var loaded_markers = 0;
-  var total_markers = 0;
-
   function initialize() {
-    console.log("trol")
-    geocoder = new google.maps.Geocoder();
-    var latlng = new google.maps.LatLng(50, 8);
     var mapOptions = {
       zoom: 1,
-      center: latlng,
+      center: new google.maps.LatLng(50, 8),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
-    map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-    bounds = new google.maps.LatLngBounds ();
+    var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+    var bounds = new google.maps.LatLngBounds();
 
-    //codeAddress('Karlsruhe, Deutschland')
-    //codeAddress('Essen')
-    //codeAddress('Australien')
-
-    //addresses = ['Karlsruhe, Deutschland', 'Essen', 'Australien']
-    addresses = #{User.all.map{|u|(u.zip_city || '') + (u.country.present? ? ', ' + u.country : '')}.compact.to_json}
-    for(i in addresses) {
-      codeAddress(addresses[i]);
+    locations = [#{User.all.map{|u|"new google.maps.LatLng(#{u.latitude},#{u.longitude})" if u.latitude.present? && u.longitude.present?}.compact.join(', ')}]
+    for(i in locations) {
+      marker = new google.maps.Marker({
+        map: map,
+        animation: google.maps.Animation.DROP,
+        position: locations[i]
+      });
+      bounds.extend(locations[i]);
     }
-  }
-
-  function codeAddress(address) {
-    total_markers++;
-    geocoder.geocode( { 'address': address }, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        var marker = new google.maps.Marker({
-            map: map,
-            animation: google.maps.Animation.DROP,
-            position: results[0].geometry.location
-        });
-        bounds.extend(marker.position);
-        if(++loaded_markers == total_markers)
-          map.fitBounds (bounds);
-      }
-    });
+    map.fitBounds (bounds);
   }
   window.addEventListener('load', initialize)
 <div id="map_canvas" style="height:400px;width:150%;margin-left:-25%"></div>

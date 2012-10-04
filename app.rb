@@ -4,7 +4,8 @@ Bundler.require(:default)
 
 require 'logger'
 require 'erb'
-
+require 'geocoder/railtie'
+Geocoder::Railtie.insert
 require 'securerandom'
 
 
@@ -71,6 +72,13 @@ class User < ActiveRecord::Base
     body = ERB.new(template).result(self.instance_eval { binding })
     subject = "[instALUMNI] Dein Fichte-Alumniportal instALUMNI startet!"
     Pony.mail(:to => self.email, :from => 'js.sokrates@gmail.com', :subject => subject, :body => body)
+  end
+
+  geocoded_by :geocode_address
+  after_validation :geocode
+
+  def geocode_address
+    [zip_city ? zip_city.gsub(/\d/, '') : nil, country].compact.join(", ")
   end
 end
 

@@ -18,6 +18,7 @@ GEM
     builder (3.0.3)
     daemons (1.1.9)
     eventmachine (1.0.0)
+    geocoder (1.1.4)
     haml (3.1.7)
     hike (1.2.1)
     i18n (0.6.1)
@@ -62,6 +63,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   activerecord_url_connections
+  geocoder
   haml
   pg
   pony
