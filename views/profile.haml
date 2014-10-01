@@ -16,7 +16,7 @@
   %a{ href: "mailto:#{@user.email}" }= @user.email
 
 %dl
-  - if @user.public_address?
+  - if @user.public_address? && @user.phone.present?
     %dt Telefon
     %dd= e @user.phone
 

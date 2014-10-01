@@ -56,10 +56,12 @@ dd { margin-left: 1em; }
 .userblock h1 { cursor: pointer }
 
 .eyeliner {
-  transition: min-height 0.2s, -webkit-filter 0.8s;
+  transition: min-height 0.2s, -webkit-filter 0.8s, filter 0.8s;
   min-height: 80px;
   cursor: pointer;
   -webkit-filter: saturate(0);
+  filter: saturate(0);
+  // fuck you firefox https://developer.mozilla.org/de/docs/Web/CSS/filter
 }
 
 .userblock:not(.open):hover .eyeliner {
@@ -69,18 +71,21 @@ dd { margin-left: 1em; }
 .open .eyeliner {
   min-height: 260px !important;
   -webkit-filter: none !important;
+  filter: none !important;
 }
 
 .profile {
-  transition: left 0.3s ease-out;
-  left: -20em;
+  transition: top 0.2s ease-out, opacity 0.2s;
+  top: -20em;
 
+  opacity: 0;
+  left: 2em;
   z-index:100;
   position:absolute;
-  top:5em;
   color:#eee
 }
 
 .open .profile {
-  left: 2em !important;
+  top: 5em !important;
+  opacity: 1 !important;
 }
