@@ -6,6 +6,9 @@
     %br
     %small{ style: 'font-size: 50%; color: #777' } Willkommen zurück zu deinen Erinnerungen.
 
+  - if @user.address.nil? || @user.address.empty?
+    .alert.alert-warning{ style: 'opacity: 0.8' } Wär' klasse, wenn du unten deine Adresse eintragen würdest. Vielleicht ändert sich deine Email ja mal, und dann müssen wir improvisieren.
+
 .widecontainer.container
   - user = @user
   .well{ style: 'padding: 0; margin-top: 3em;box-shadow: 0 0 10px #888;border:0'}
@@ -20,13 +23,13 @@
     .row
       .col-md-10.col-md-offset-1{ style: "margin-top: 1em;margin-bottom:2em"}
         - if p = user.posts.last
-          - text = "Was Neues schreiben"
+          - text = "Etwas Neues schreiben"
           %blockquote<
             = p.body
             %footer= p.created_at.strftime("%d.%m.%Y")
         - else
-          - text = "Was Besseres hier hin schreiben"
-          %blockquote.muted< Mr. und Mrs. Dursley im Ligusterweg Nummer 4 waren stolz darauf, ganz und gar normal zu sein, sehr stolz sogar.
+          - text = "Was Tolleres hier hin schreiben"
+          %blockquote.muted{ style: 'opacity: 0.5'}< Mr. und Mrs. Dursley im Ligusterweg Nummer 4 waren stolz darauf, ganz und gar normal zu sein, sehr stolz sogar.
 
         %div.btn.btn-primary= text
 
@@ -34,21 +37,31 @@
 
   %hr
 
-  %a{ href: '/all' }
-    = haml :map
+  = haml :map
 
-  %p{ style: 'text-align: center'}
-    %small.muted Klicke auf die Karte, um die Kontaktinfos der anderen anzuschauen!
   %hr
+  %h3 Was macht eigentlich...
+  - u = Post.where('created_at > ?', 1.year.ago).sample.user
+  .well{ style: 'padding: 0; margin-top: 2em;box-shadow: 0 0 10px #888;border:0'}
+    %div{ style: "background: black;position:relative"}
+      .row
+        %h1{ style: 'z-index:100;position:absolute;left:0;margin: 0; color: white; font-weight:300;padding-top: 0.5em;padding-left:0.5em'}= u.firstname
+        .col-md-9.col-md-offset-3
+          %div{ style: "background: url(/users/#{u.uid}/avatar) 50% #{((DEFAULT_AVATAR_EYELINE_POSITION[u.uid] || 0.35)*100).to_i}%; background-size:cover; min-height: 80px; -webkit-filter: saturate(0);border-top-left-radius:5px;border-top-right-radius:5px"}
+    - if p = u.posts.last
+      .row{ style: "margin-top: 1em"}
+        .col-md-10.col-md-offset-1
+          %blockquote<
+            = p.body
+            %footer= p.created_at.strftime("%d.%m.%Y")
 
-  %h2{ style: 'position: relative;'}
+  %hr
+  %h3{ style: 'position: relative;margin-top:2em;'}
     %div{ style: 'position:absolute;top: -30px; left: -140px'}
       = avatar(@user)
     Stimmt das noch?
     %small Umzug, Hochzeit, etc.
 
-  - if @user.address.nil? || @user.address.empty?
-    .alert.alert-warning{ style: 'opacity: 0.8' } Wär' klasse, wenn du deine Adresse eintragen würdest. Vielleicht ändert sich deine Email ja mal, und dann müssen wir improvisieren.
   %dl
     %dt Adresse
     %dd= e @user.address
