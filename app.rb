@@ -32,6 +32,7 @@ Pony.options = {
 class User < ActiveRecord::Base
   validates_presence_of :name, :original_name, :email, :auth_token
   validates :uid, presence: true, uniqueness: true
+  belongs_to :avatar
 
   has_many :posts
 
@@ -99,6 +100,10 @@ class Post < ActiveRecord::Base
   validates_presence_of :body, :user
 end
 
+class Avatar < ActiveRecord::Base
+  validates :image, :ugly_image, presence: true
+end
+
 before do
   session[:auth_token] = params[:auth_token] if params[:auth_token]
   if session[:auth_token] && u = User.find_by_auth_token(session[:auth_token])
@@ -120,7 +125,7 @@ helpers do
   def avatar(user, opts={})
     scale = opts[:scale] || 2
     id = SecureRandom.hex
-    source = "/users/#{user.uid}/avatar"
+    source = "/avatars/#{user.avatar_id}"
 
     bg_color = "000"
 
@@ -163,11 +168,11 @@ post '/update' do
   end
 end
 
-get "/users/:uid/avatar" do
-  return "" if params[:uid] == "zarbaler"
-  u = User.where(uid: params[:uid]).first
+get "/avatars/:id" do
+  a = Avatar.find(params[:id])
   content_type "image/jpg"
-  File.open("var/avatars/#{u.uid}.jpg")
+  cache_control :public, max_age: 60*60*24*365
+  a.ugly_image
 end
 
 post '/posts' do
