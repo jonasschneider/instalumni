@@ -1,113 +1,116 @@
-%h1{ style: 'font-size: 300%' }
-  Hallo,
+.container
+  %h1{ style: 'font-size: 300%' }
+    Hallo,
+    = succeed '.' do
+      = e @user.firstname
+    %br
+    %small{ style: 'font-size: 50%; color: #777' } Willkommen zurück zu deinen Erinnerungen.
+
+  %hr
+
+  %h2
+    Was treibst du so?
+    %small Deine eigene Zeitkapsel.
+
+  %p
+    Lass' doch mal von dir hören.
+    Wenn du willst, kannst du hier eine kurze Statusmeldung verfassen.
+    In vielen Jahren wirst du dich vielleicht darüber freuen.
+
+  %form{ action: '/posts', method: 'post' }
+    %textarea{ name: 'post[body]', style: 'width: 100%;box-sizing:border-box', cols: 100, rows: 3, placeholder: 'Mr. und Mrs. Dursley im Ligusterweg Nummer 4 waren stolz darauf, ganz und gar normal zu sein, sehr stolz sogar.' }
+
+    .pull-right
+      %small.muted
+        Insgesamt gibt es
+        = Post.count + 37
+        Statusmeldungen,
+        - if @user.posts.count > 0
+          davon
+          = @user.posts.count
+          von dir.
+        - else
+          aber noch keine von dir.
+      %input.btn.btn-small.btn-primary{ type: 'submit', value: 'Speichern' }
+
+
+
+  .clearfix
+
+  %hr
+
+  %a{ href: '/all' }
+    = haml :map
+
+  %p{ style: 'text-align: center'}
+    %small.muted Klicke auf die Karte, um die Kontaktinfos der anderen anzuschauen!
+  %hr
+
+  %h2{ style: 'position: relative;'}
+    %div{ style: 'position:absolute;top: -30px; left: -140px'}
+      = avatar(@user)
+    Stimmt das noch?
+    %small Umzug, Hochzeit, etc.
+
+  - if @user.address.nil? || @user.address.empty?
+    .alert.alert-warning{ style: 'opacity: 0.6' } Bitte trage deine Addresse ein.
+  %dl
+    %dt Adresse
+    %dd= e @user.address
+
+    %dt PLZ &amp; Stadt
+    %dd= e @user.zip_city
+
+    %dt Land
+    %dd= e @user.country
+
+    %dt Telefon
+    %dd= e @user.phone
+
+    %dt Email-Addresse
+    %dd= @user.email
+
+    - if @user.custom1_name && !@user.custom1_name.blank?
+      %dt= @user.custom1_name
+      %dd= @user.custom1_value
+
+    - if @user.custom2_name && !@user.custom2_name.blank?
+      %dt= @user.custom2_name
+      %dd= @user.custom2_value
+
+
+  Du kannst
   = succeed '.' do
-    = e @user.firstname
-  %br
-  %small{ style: 'font-size: 50%; color: #777' } Willkommen zurück zu deinen Erinnerungen.
-
-%hr
-
-%h2
-  Was treibst du so?
-  %small Deine eigene Zeitkapsel.
-
-%p
-  Lass' doch mal von dir hören.
-  Wenn du willst, kannst du hier eine kurze Statusmeldung verfassen.
-  In vielen Jahren wirst du dich vielleicht darüber freuen.
-
-%form{ action: '/posts', method: 'post' }
-  %textarea{ name: 'post[body]', style: 'width: 100%;box-sizing:border-box', cols: 100, rows: 3, placeholder: 'Mr. und Mrs. Dursley im Ligusterweg Nummer 4 waren stolz darauf, ganz und gar normal zu sein, sehr stolz sogar.' }
-
-  .pull-right
-    %small.muted
-      Insgesamt gibt es
-      = Post.count + 37
-      Statusmeldungen,
-      - if @user.posts.count > 0
-        davon
-        = @user.posts.count
-        von dir.
-      - else
-        aber noch keine von dir.
-    %input.btn.btn-small.btn-primary{ type: 'submit', value: 'Speichern' }
+    %a{ href: '/edit' } deine Kontaktdaten ändern
 
 
+  %hr
 
-.clearfix
+  %h4.muted Die guten alten Zeiten.
 
-%hr
+  %p.muted
+    Weißt du noch, damals...
+    du warst Meister im
+    = succeed ',' do
+      %em= e @user.meta_meister
 
-%a{ href: '/all' }
-  = haml :map
+    und vielleicht bist du jetzt
+    = succeed '.' do
+      %em= e @user.meta_zukunft
 
-%p{ style: 'text-align: center'}
-  %small.muted Klicke auf die Karte, um die Kontaktinfos der anderen anzuschauen!
-%hr
+    Damals nach dem Abi
+    = succeed '.' do
+      %em= e @user.meta_nachabi
 
-%h2
-  Stimmt das noch?
-  %small Umzug, Hochzeit, etc.
+    Ohne
+    %em= e @user.meta_lebenswichtig
+    hättest du das Abi aber nicht geschafft.
 
-- if @user.address.nil? || @user.address.empty?
-  .alert.alert-warning{ style: 'opacity: 0.6' } Bitte trage deine Addresse ein.
-%dl
-  %dt Adresse
-  %dd= e @user.address
+    Ach, und übrigens:
+    %em= e @user.meta_nachruf
 
-  %dt PLZ &amp; Stadt
-  %dd= e @user.zip_city
-
-  %dt Land
-  %dd= e @user.country
-
-  %dt Telefon
-  %dd= e @user.phone
-
-  %dt Email-Addresse
-  %dd= @user.email
-
-  - if @user.custom1_name && !@user.custom1_name.blank?
-    %dt= @user.custom1_name
-    %dd= @user.custom1_value
-
-  - if @user.custom2_name && !@user.custom2_name.blank?
-    %dt= @user.custom2_name
-    %dd= @user.custom2_value
-
-
-Du kannst
-= succeed '.' do
-  %a{ href: '/edit' } deine Kontaktdaten ändern
-
-
-%hr
-
-%h4.muted Die guten alten Zeiten.
-
-%p.muted
-  Weißt du noch, damals...
-  du warst Meister im
-  = succeed ',' do
-    %em= e @user.meta_meister
-
-  und vielleicht bist du jetzt
-  = succeed '.' do
-    %em= e @user.meta_zukunft
-
-  Damals nach dem Abi
-  = succeed '.' do
-    %em= e @user.meta_nachabi
-
-  Ohne
-  %em= e @user.meta_lebenswichtig
-  hättest du das Abi aber nicht geschafft.
-
-  Ach, und übrigens:
-  %em= e @user.meta_nachruf
-
-%p.muted
-  %strong
-    Ein zufälliger Kommentar über dich aus der Abizeitung:
-  %br
-  %em= e @user.random_tag
+  %p.muted
+    %strong
+      Ein zufälliger Kommentar über dich aus der Abizeitung:
+    %br
+    %em= e @user.random_tag

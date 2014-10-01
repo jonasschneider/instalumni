@@ -2,6 +2,7 @@
 %html
   %head
     %title instALUMNI
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     %link{ rel: 'stylesheet', href: '/assets/application.css'}
 
   %body
@@ -14,11 +15,13 @@
           Abi 2012 am Fichte-Gymnasium Karlsruhe
       - flash.each do |type, value|
         .alert{ :class => "alert-#{type.to_s}" }
-          = value 
+          = value
 
       %hr
-      = yield
 
+    = yield
+
+    .container
       %hr
       %footer
         %p.muted.pull-right{ style: 'text-align: right' }

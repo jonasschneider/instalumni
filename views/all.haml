@@ -1,36 +1,12 @@
-= haml :map
+.widecontainer.container
+  = haml :map
+  %hr
+  - User.order(:uid).each do |user|
+    - if user.zip_city.present?
+      .well{ style: 'padding: 0; margin-top: 5em;box-shadow: 0 0 10px #888;border:0'}
+        %div{ style: "background: black;position:relative"}
+          .row
+            %h1{ style: 'z-index:100;position:absolute;left:0;margin: 0; color: white; font-weight:300;padding-top: 0.5em;padding-left:0.5em'}= user.firstname
+            .col-md-9.col-md-offset-3
+              %div{ style: "background: url(/users/#{user.uid}/avatar) 50% #{((DEFAULT_AVATAR_EYELINE_POSITION[user.uid] || 0.35)*100).to_i}%; background-size:cover; min-height: 80px; -webkit-filter: saturate(0);border-top-left-radius:5px;border-top-right-radius:5px"}
 
-%hr
-
-- User.order(:uid).each do |user|
-  - if user.zip_city.present?
-    .well
-      %h3= user.name
-      
-      %p
-        - if user.public_address?
-          = e user.address
-          %br
-          = e user.zip_city
-        - else
-          = e user.city
-
-        - if user.country.present?
-          %br
-          = e user.country
-
-      %p
-        %a{ href: "mailto:#{user.email}" }= user.email
-      
-      %dl
-        - if user.public_address?
-          %dt Telefon
-          %dd= e user.phone
-
-        - if user.custom1_name && !user.custom1_name.blank?
-          %dt= user.custom1_name
-          %dd= user.custom1_value
-
-        - if user.custom2_name && !user.custom2_name.blank?
-          %dt= user.custom2_name
-          %dd= user.custom2_value

@@ -1,0 +1,35 @@
+%script{ src: "https://code.jquery.com/jquery-2.1.1.min.js"}
+%script{ src: "/assets/objectdetect.js"}
+%script{ src: "/assets/objectdetect.eye.js"}
+%script{ src: "/assets/jquery.objectdetect.js"}
+
+- User.order(:uid).each do |user|
+  - if user.uid != "dummy"
+    %img.face{ src: "/users/#{user.uid}/avatar", style: "width: 800px;", id: user.uid}
+
+:javascript
+  setTimeout(function() {
+    var percentages = {}
+
+    $(".face").each(function() {
+      var face = this;
+      console.log(face)
+      var n = 0;
+      var sy = 0;
+      $(face).objectdetect("all", {classifier: objectdetect.eye}, function(coords) {
+        coords.forEach(function(x) {
+          if(x[2] > 130 || x[3] > 130) return;
+          n += 1
+          sy += x[1]
+          var left = x[0] + $(face).offset().left
+          var y = $(face).offset().top + x[1]
+          $("<div>").css({position:"absolute", top: y+"px", left: left+"px", width: x[2]+"px", height: x[3]+"px", background: "red"}).appendTo(document.body)
+        })
+
+        var realy = ((0.0 + sy) / n) / $(face).height()
+
+        percentages[$(face).attr("id")] = realy
+      });
+    })
+    console.log(JSON.stringify(percentages))
+  }, 5000)
