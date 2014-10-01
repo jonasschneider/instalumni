@@ -42,11 +42,6 @@ class User < ActiveRecord::Base
     save! unless new_record?
   end
 
-  def firstname
-    return "Nhung" if uid == 'phanthsa' # ;)
-    name.split(/\s+/).first rescue ''
-  end
-
   def random_tag
     tags = JSON.parse(json_tags) rescue []
     tags.sample
@@ -91,7 +86,7 @@ class User < ActiveRecord::Base
   end
 
   def firstname
-    return "Nhung" if uid == "phantsa"
+    return "Nhung" if uid == "phanthsa"
     return "Raphaël" if uid == "kraifra"
     len = I18n.transliterate(name).match(/^[A-Z][a-z]*(\-[A-Z][a-z]+)?/).try(:to_s).try(:length)
     return unless len
@@ -169,6 +164,7 @@ post '/update' do
 end
 
 get "/users/:uid/avatar" do
+  return "" if params[:uid] == "zarbaler"
   u = User.where(uid: params[:uid]).first
   content_type "image/jpg"
   File.open("var/avatars/#{u.uid}.jpg")

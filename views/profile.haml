@@ -1,0 +1,29 @@
+%p
+  - if @user.public_address?
+    - if @user.address.present?
+      = e @user.address
+      %br
+    = e @user.zip_city
+  - else
+    - if @user.city.present?
+      = e @user.city
+
+  - if @user.country.present?
+    %br
+    = e @user.country
+
+%p
+  %a{ href: "mailto:#{@user.email}" }= @user.email
+
+%dl
+  - if @user.public_address?
+    %dt Telefon
+    %dd= e @user.phone
+
+  - if @user.custom1_name && !@user.custom1_name.blank?
+    %dt= @user.custom1_name
+    %dd= @user.custom1_value
+
+  - if @user.custom2_name && !@user.custom2_name.blank?
+    %dt= @user.custom2_name
+    %dd= @user.custom2_value

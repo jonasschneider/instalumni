@@ -1,17 +1,20 @@
+=# haml :map
+
 .widecontainer.container
-  = haml :map
   %hr
   - User.order(:uid).each do |user|
-    - if user.zip_city.present?
-      .well{ style: 'padding: 0; margin-top: 5em;box-shadow: 0 0 10px #888;border:0'}
-        %div{ style: "background: black;position:relative"}
-          .row
-            %h1{ style: 'z-index:100;position:absolute;left:0;margin: 0; color: white; font-weight:300;padding-top: 0.5em;padding-left:0.5em'}= user.firstname
-            .col-md-9.col-md-offset-3
-              %div{ style: "background: url(/users/#{user.uid}/avatar) 50% #{((DEFAULT_AVATAR_EYELINE_POSITION[user.uid] || 0.35)*100).to_i}%; background-size:cover; min-height: 80px; -webkit-filter: saturate(0);border-top-left-radius:5px;border-top-right-radius:5px"}
-        - if p = user.posts.last
-          .row{ style: "margin-top: 1em"}
-            .col-md-10.col-md-offset-1
-              %blockquote<
-                = p.body
-                %footer= p.created_at.strftime("%d.%m.%Y")
+    - next if user.uid == "dummy"
+    - lost = !user.zip_city.present?
+    .well.userblock{ style: 'padding: 0; margin-top: 5em;box-shadow: 0 0 10px #888;border:0', onclick: "this.classList.add('open')"}
+      %div{ style: "background: black;position:relative; overflow: hidden"}
+        .row
+          %h1{ style: 'z-index:100;position:absolute;left:0;margin: 0; color: white; font-weight:300;padding-top: 0.5em;padding-left:0.5em'}= user.firstname
+          .profile= @user = user; haml :profile
+          .col-md-9.col-md-offset-3
+            %div.eyeliner{ style: "background: url(/users/#{user.uid}/avatar) 50% #{((DEFAULT_AVATAR_EYELINE_POSITION[user.uid] || 0.35)*100).to_i}%; background-size:cover;border-top-left-radius:5px;border-top-right-radius:5px"}
+      - if p = user.posts.last
+        .row{ style: "margin-top: 1em"}
+          .col-md-10.col-md-offset-1
+            %blockquote<
+              = p.body
+              %footer= p.created_at.strftime("%d.%m.%Y")
