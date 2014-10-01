@@ -6,34 +6,29 @@
     %br
     %small{ style: 'font-size: 50%; color: #777' } Willkommen zurück zu deinen Erinnerungen.
 
-  %hr
+.widecontainer.container
+  - user = @user
+  .well{ style: 'padding: 0; margin-top: 3em;box-shadow: 0 0 10px #888;border:0'}
+    %div{ style: "background: black;position:relative"}
+      .row
+        %h1{ style: 'z-index:100;position:absolute;left:0;margin: 0; color: white; font-weight:300;padding-top: 0.5em;padding-left:0.5em'}= user.firstname
+        %div{ style: 'position: absolute; left: calc(100% + 20px); top: 20px;'}
+          .btn.btn-default Bild ändern
+        .col-md-9.col-md-offset-3
+          %div{ style: "background: url(/users/#{user.uid}/avatar) 50% #{((DEFAULT_AVATAR_EYELINE_POSITION[user.uid] || 0.35)*100).to_i}%; background-size:cover; min-height: 80px; -webkit-filter: saturate(0);border-top-left-radius:5px;border-top-right-radius:5px"}
 
-  %h2
-    Was treibst du so?
-    %small Deine eigene Zeitkapsel.
-
-  %p
-    Lass' doch mal von dir hören.
-    Wenn du willst, kannst du hier eine kurze Statusmeldung verfassen.
-    In vielen Jahren wirst du dich vielleicht darüber freuen.
-
-  %form{ action: '/posts', method: 'post' }
-    %textarea{ name: 'post[body]', style: 'width: 100%;box-sizing:border-box', cols: 100, rows: 3, placeholder: 'Mr. und Mrs. Dursley im Ligusterweg Nummer 4 waren stolz darauf, ganz und gar normal zu sein, sehr stolz sogar.' }
-
-    .pull-right
-      %small.muted
-        Insgesamt gibt es
-        = Post.count + 37
-        Statusmeldungen,
-        - if @user.posts.count > 0
-          davon
-          = @user.posts.count
-          von dir.
+    .row
+      .col-md-10.col-md-offset-1{ style: "margin-top: 1em;margin-bottom:2em"}
+        - if p = user.posts.last
+          - text = "Was Neues schreiben"
+          %blockquote<
+            = p.body
+            %footer= p.created_at.strftime("%d.%m.%Y")
         - else
-          aber noch keine von dir.
-      %input.btn.btn-small.btn-primary{ type: 'submit', value: 'Speichern' }
+          - text = "Was Besseres hier hin schreiben"
+          %blockquote.muted< Mr. und Mrs. Dursley im Ligusterweg Nummer 4 waren stolz darauf, ganz und gar normal zu sein, sehr stolz sogar.
 
-
+        %div.btn.btn-primary= text
 
   .clearfix
 
@@ -53,7 +48,7 @@
     %small Umzug, Hochzeit, etc.
 
   - if @user.address.nil? || @user.address.empty?
-    .alert.alert-warning{ style: 'opacity: 0.6' } Bitte trage deine Addresse ein.
+    .alert.alert-warning{ style: 'opacity: 0.8' } Wär' klasse, wenn du deine Adresse eintragen würdest. Vielleicht ändert sich deine Email ja mal, und dann müssen wir improvisieren.
   %dl
     %dt Adresse
     %dd= e @user.address
