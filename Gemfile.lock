@@ -41,6 +41,8 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     rack (1.5.2)
+    rack-cache (1.2)
+      rack (>= 0.4)
     rack-protection (1.5.3)
       rack
     sass (3.4.5)
@@ -77,6 +79,7 @@ DEPENDENCIES
   pg
   pony
   pry
+  rack-cache
   sass
   sinatra
   sinatra-flash

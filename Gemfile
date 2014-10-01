@@ -9,6 +9,7 @@ gem 'sass'
 gem 'thin'
 
 gem 'sinatra-flash'
+gem 'rack-cache'
 
 gem 'pony'
 

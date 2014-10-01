@@ -18,7 +18,7 @@
         %div{ style: 'position: absolute; left: calc(100% + 20px); top: 20px;'}
           .btn.btn-default Bild ändern
         .col-md-9.col-md-offset-3
-          %div{ style: "background: url(/users/#{user.uid}/avatar) 50% #{((DEFAULT_AVATAR_EYELINE_POSITION[user.uid] || 0.35)*100).to_i}%; background-size:cover; min-height: 80px;border-top-left-radius:5px;border-top-right-radius:5px"}
+          %div{ style: "background: url(/avatars/#{user.avatar_id}) 50% #{((DEFAULT_AVATAR_EYELINE_POSITION[user.uid] || 0.35)*100).to_i}%; background-size:cover; min-height: 80px;border-top-left-radius:5px;border-top-right-radius:5px"}
 
     .row
       .col-md-10.col-md-offset-1{ style: "margin-top: 1em;margin-bottom:2em"}
@@ -43,7 +43,7 @@
   .row{ style: 'margin-top:1em;margin-bottom:1em'}
     - lost_souls.first(3).each do |u|
       .col-md-4
-        %div{ style: "background: url(/users/#{u.uid}/avatar) 50% #{((DEFAULT_AVATAR_EYELINE_POSITION[u.uid] || 0.35)*100).to_i}%; background-size:cover; min-height: 80px; padding-top: 4em; text-align: center"}
+        %div{ style: "background: url(/avatars/#{u.avatar_id}) 50% #{((DEFAULT_AVATAR_EYELINE_POSITION[u.uid] || 0.35)*100).to_i}%; background-size:cover; min-height: 80px; padding-top: 4em; text-align: center"}
   %p
     Hast du noch mit diesen Leuten zu tun? Ja? Klasse! Wir leider nicht mehr&hellip; Wenn du sie mal siehst, richte doch aus, es wäre toll, wenn sie auch mal hier vorbei schauen würden.
     %span.muted
