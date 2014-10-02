@@ -19,7 +19,7 @@ body {
 }
 
 .widecontainer {
-  width: 580px;
+  width: 620px;
 }
 
 #header {
@@ -56,8 +56,8 @@ dd { margin-left: 1em; }
 .userblock h1 { cursor: pointer }
 
 .eyeliner {
-  transition: min-height 0.2s, -webkit-filter 0.8s, filter 0.8s;
-  min-height: 80px;
+  transition: height 0.2s, -webkit-filter 0.8s, filter 0.8s;
+  height: 80px;
   cursor: pointer;
   -webkit-filter: saturate(0) brightness(1);
   filter: saturate(0) brightness(1);
@@ -65,13 +65,12 @@ dd { margin-left: 1em; }
 }
 
 .userblock:not(.open):hover .eyeliner {
-  min-height: 90px !important;
+  height: 90px !important;
   -webkit-filter: saturate(0) brightness(1.2) !important;
   filter: saturate(0) brightness(1.2) !important;
 }
 
 .open .eyeliner {
-  min-height: 260px !important;
   -webkit-filter: none !important;
   filter: none !important;
 }

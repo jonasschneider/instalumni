@@ -38,15 +38,15 @@
   %hr
 
 .container
-  - lost_souls = User.where('uid IN (?)', SYMMETRICAL_CONNECTION_MAP[@user.uid]).select{|u|u.posts.where('created_at > ?', 1.year.ago-60.days).empty?}
+  - lost_souls = User.where('uid IN (?)', SYMMETRICAL_CONNECTION_MAP[@user.uid]).select{|u|u.posts.where('created_at > ?', 1.year.ago-60.days).empty?}.first(3)
 
   %h3 Bekannte Gesichter
   .row{ style: 'margin-top:1em;margin-bottom:1em'}
-    - lost_souls.first(3).each do |u|
+    - lost_souls.each do |u|
       .col-md-4
-        %div{ style: "background: url(/avatars/#{u.avatar_id}) 50% #{((DEFAULT_AVATAR_EYELINE_POSITION[u.uid] || 0.35)*100).to_i}%; background-size:cover; min-height: 80px; padding-top: 4em; text-align: center"}
+        %div{ style: "background: url(/avatars/#{u.avatar_id}) 50% #{((DEFAULT_AVATAR_EYELINE_POSITION[u.uid] || 0.35)*100).to_i}%; background-size:cover; min-height: 80px; padding-top: 4em; text-align: center;-webkit-filter:saturate(0)"}
   %p
-    Hast du noch mit diesen Leuten zu tun? Ja? Klasse! Wir leider nicht mehr&hellip; Wenn du sie mal siehst, richte doch aus, es wäre toll, wenn sie auch mal hier vorbei schauen würden.
+    == Hast du noch Kontakt zu #{lost_souls.map(&:firstname).join(", ").sub(/(.*), /, "\\1 und ")}? Ja? Klasse! Wir leider irgendwie nicht mehr&hellip; Wenn du sie mal siehst, richte doch aus, es wäre toll, wenn sie auch mal hier vorbei schauen würden.
     %span.muted
       Wenn sich bei jemandem die Email-Adresse geändert hat,
       %a{ href: 'mailto:mail@jonasschneider.com'} wir regeln das!
