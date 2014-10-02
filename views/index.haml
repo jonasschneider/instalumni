@@ -51,12 +51,14 @@
       Wenn sich bei jemandem die Email-Adresse geändert hat,
       %a{ href: 'mailto:mail@jonasschneider.com'} wir regeln das!
 
-.widecontainer.container
   %hr
   .pull-right
     %a.btn.btn-default{ href: '/all' } Alle Einträge anschauen
   %h3
     Was macht eigentlich...
+
+
+.widecontainer.container
   - u = Post.where('created_at > ?', 1.year.ago-60.days).sample.user
   .well{ style: 'padding: 0; margin-top: 2em;box-shadow: 0 0 10px #888;border:0'}
     %div{ style: "background: black;position:relative"}
