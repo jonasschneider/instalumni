@@ -10,12 +10,13 @@ einiges passiert ;)<% end %>
 
 Das Wichtigste ist für uns aber immer noch die Sache mit den Kontaktdaten. Denn
 wenn mal was wirklich Tolles ansteht (und nicht nur Rumklicken auf einer
-Webseite), wäre es genial, wenn wir es schaffen, alle zusammenzutrommeln.
+Webseite), wäre es genial, wenn wir es schaffen, alle zusammenzutrommeln.<% if address.empty? %>
+Wäre super, wenn du bei Gelegenheit auch deine Adresse eintragen würdest.<% end %>
 
 À propos zusammentrommeln: Es gibt jetzt wieder einen kleinen Chat.
-Nichts großes, vielleicht einfach eine Plattform, um Ideen und Pläne für Treffen
-auszutauschen, oder auch einfach loszuwerden, was gerade auf dem Herzen liegt.
-Über die Nachrichten im Chat werden alle auf dem Laufenden gehalten.
+Nichts großes, vielleicht einfach ein Ort, um Ideen und Pläne für Treffen
+auszutauschen, oder auch einfach loszuwerden, was dir gerade auf dem Herzen liegt.
+Über die Nachrichten im Chat werden alle per Mail auf dem Laufenden gehalten.
 
 Und wo wir gerade dabei sind: Hast du noch Kontakt zu <%= patrees_without_address.map(&:firstname).join(", ").sub(/(.*), /, "\\1 oder ") %>?
 Leider sind nicht alle auf instALUMNI aktiv und manche haben noch keine Kontaktdaten
