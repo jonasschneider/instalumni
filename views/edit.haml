@@ -1,80 +1,82 @@
-- if @user.errors.any?
-  .alert.alert-error= @user.errors.full_messages.to_sentence
+.container
+  - if @user.errors.any?
+    .alert.alert-error= @user.errors.full_messages.to_sentence
 
-%form.form-horizontal{ action: '/update', method: 'post' }
+  %form.form-horizontal{ action: '/update', method: 'post' }
 
-  %fieldset
-    %legend
-      Deine Kontaktdaten
-      %small Kein Spam, garantiert!
+    %fieldset
+      %legend
+        Deine Kontaktdaten
+        %small.muted Kein Spam, garantiert!
 
-    .control-group
-      %label.control-label Name
-      .controls
-        %input.input-large{ type: 'text', name: 'user[name]', value: @user.name }
+      .form-group
+        %label.control-label.col-sm-4 Name
+        .col-sm-8
+          %input.form-control{ type: 'text', name: 'user[name]', value: @user.name }
 
-    %hr
+      %hr
 
-    .control-group
-      %label.control-label Straße/Hausnummer
-      .controls
-        %input.input-large{ type: 'text', name: 'user[address]', value: @user.address }
-
-
-    .control-group
-      %label.control-label PLZ &amp; Stadt
-      .controls
-        %input.input-large{ type: 'text', name: 'user[zip_city]', value: @user.zip_city }
-        
-
-    .control-group
-      %label.control-label Land
-      .controls
-        %input.input-large{ type: 'text', name: 'user[country]', value: @user.country }
-    
-    .control-group
-      %label.control-label Telefonnummer
-      .controls
-        %input.input-large{ type: 'text', name: 'user[phone]', value: @user.phone }
-
-    .control-group
-      .controls
-        .input-large
-          %input{ type: 'hidden', name: 'user[public_address]', value: '0' }
-          %input{ type: 'checkbox', name: 'user[public_address]', value: '1', checked: @user.public_address==true ? 'checked' : nil }
-          %small Andere dürfen meine genaue Adresse &amp; Telefonnummer sehen
-
-    %hr
-
-    .control-group
-      %label.control-label Email-Addresse
-      .controls
-        %input.input-large{ type: 'text', name: 'user[email]', value: @user.email }
-        %p.help-block Bitte achte darauf, dass deine Email-Addresse richtig ist! Wenn du hier etwas falsches einträgst, kannst du dich nicht mehr anmelden.
+      .form-group
+        %label.control-label.col-sm-4 Straße/Hausnummer
+        .col-sm-8
+          %input.form-control{ type: 'text', name: 'user[address]', value: @user.address }
 
 
-  %fieldset
-    %legend Andere Kontaktmöglichkeiten
+      .form-group
+        %label.control-label.col-sm-4 PLZ &amp; Stadt
+        .col-sm-8
+          %input.form-control{ type: 'text', name: 'user[zip_city]', value: @user.zip_city }
 
-    .control-group
-      .control-label
-        %input.input-small{ type: 'text', name: 'user[custom1_name]', placeholder: 'z.b. Skype', style: 'margin-top:-5px', value: @user.custom1_name }
-      .controls
-        %input.input-large{ type: 'text', name: 'user[custom1_value]', value: @user.custom1_value }
 
-    .control-group
-      .control-label
-        %input.input-small{ type: 'text', name: 'user[custom2_name]', placeholder: 'z.b. ICQ', style: 'margin-top:-5px', value: @user.custom2_name }
-      .controls
-        %input.input-large{ type: 'text', name: 'user[custom2_value]', value: @user.custom2_value }
+      .form-group
+        %label.control-label.col-sm-4 Land
+        .col-sm-8
+          %input.form-control{ type: 'text', name: 'user[country]', value: @user.country }
 
-  .form-actions
-    %input.btn.btn-primary{ type: 'submit', value: 'Speichern' }
-    oder
-    %a{ href: '/' } Abbrechen
+      .form-group
+        %label.control-label.col-sm-4 Telefonnummer
+        .col-sm-8
+          %input.form-control{ type: 'text', name: 'user[phone]', value: @user.phone }
 
-%hr
+      .form-group
+        .col-sm-8.col-sm-offset-4
+          .input-large
+            %label{ style: 'font-weight: normal'}
+              %input{ type: 'hidden', name: 'user[public_address]', value: '0' }
+              %input{ type: 'checkbox', name: 'user[public_address]', value: '1', checked: @user.public_address==true ? 'checked' : nil }
+              %small Andere dürfen meine genaue Adresse &amp; Telefonnummer sehen
 
-%p.muted
-  Wenn du das alles gar nicht willst, kannst du dich auch permanent von der instALUMNI-Seite löschen.
-  Bitte schreibe dazu eine Mail an uns. (Addresse s.u.)
+      %hr
+
+      .form-group
+        %label.control-label.col-sm-4 Email-Addresse
+        .col-sm-8
+          %input.form-control{ type: 'text', name: 'user[email]', value: @user.email }
+          %p.help-block Bitte achte darauf, dass deine Email-Addresse richtig ist! Wenn du hier etwas falsches einträgst, kannst du dich nicht mehr anmelden.
+
+
+    %fieldset
+      %legend Andere Kontaktmöglichkeiten
+
+      .form-group
+        .col-sm-4
+          %input.form-control.input-sm{ type: 'text', name: 'user[custom1_name]', placeholder: 'z.b. Skype', value: @user.custom1_name }
+        .col-sm-8
+          %input.form-control{ type: 'text', name: 'user[custom1_value]', value: @user.custom1_value }
+
+      .form-group
+        .col-sm-4
+          %input.form-control.input-sm{ type: 'text', name: 'user[custom2_name]', placeholder: 'z.b. ICQ', value: @user.custom2_name }
+        .col-sm-8
+          %input.form-control{ type: 'text', name: 'user[custom2_value]', value: @user.custom2_value }
+
+    .form-actions
+      %input.btn.btn-primary{ type: 'submit', value: 'Speichern' }
+      oder
+      %a{ href: '/' } zurück
+
+  %hr
+
+  %p.muted
+    Wenn du das alles gar nicht willst, kannst du dich auch permanent von der instALUMNI-Seite löschen.
+    Bitte schreibe dazu eine Mail an uns. (Addresse s.u.)

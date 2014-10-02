@@ -59,13 +59,15 @@ dd { margin-left: 1em; }
   transition: min-height 0.2s, -webkit-filter 0.8s, filter 0.8s;
   min-height: 80px;
   cursor: pointer;
-  -webkit-filter: saturate(0);
-  filter: saturate(0);
+  -webkit-filter: saturate(0) brightness(1);
+  filter: saturate(0) brightness(1);
   // fuck you firefox https://developer.mozilla.org/de/docs/Web/CSS/filter
 }
 
 .userblock:not(.open):hover .eyeliner {
   min-height: 90px !important;
+  -webkit-filter: saturate(0) brightness(1.2) !important;
+  filter: saturate(0) brightness(1.2) !important;
 }
 
 .open .eyeliner {

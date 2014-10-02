@@ -37,6 +37,7 @@
 
   %hr
 
+.container
   - lost_souls = User.where('uid IN (?)', SYMMETRICAL_CONNECTION_MAP[@user.uid]).select{|u|u.posts.where('created_at > ?', 1.year.ago-60.days).empty?}
 
   %h3 Bekannte Gesichter
@@ -50,6 +51,7 @@
       Wenn sich bei jemandem die Email-Adresse geändert hat,
       %a{ href: 'mailto:mail@jonasschneider.com'} wir regeln das!
 
+.widecontainer.container
   %hr
   .pull-right
     %a.btn.btn-default{ href: '/all' } Alle Einträge anschauen
@@ -69,10 +71,9 @@
             = p.body
             %footer= p.created_at.strftime("%d.%m.%Y")
 
+.container
   %hr
-  %h3{ style: 'position: relative;margin-top:2em;'}
-    %div{ style: 'position:absolute;top: -30px; left: -140px'}
-      = avatar(@user)
+  %h3{ style: 'margin-top:2em;'}
     Stimmt das noch?
     %small Umzug, Hochzeit, etc.
 
