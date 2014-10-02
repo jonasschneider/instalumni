@@ -2,7 +2,7 @@
 
 .widecontainer.container
   %hr
-  - User.order(:uid).each do |user|
+  - User.order(:uid).includes(:avatar).each do |user|
     - next if user.uid == "dummy"
     - lost = !user.zip_city.present?
     .well.userblock{ style: 'padding: 0; margin-top: 5em;box-shadow: 0 0 10px #888;border:0', onclick: "this.classList.add('open');this.querySelector('.eyeliner').style.height=Math.max(parseInt(window.getComputedStyle(this.querySelector('.profile')).height)+80,250)+'px'"}
@@ -11,7 +11,7 @@
           %h1{ style: 'z-index:100;position:absolute;left:0;margin: 0; color: white; font-weight:300;padding-top: 0.5em;padding-left:0.5em'}= user.firstname
           .profile= @user = user; haml :profile
           .col-md-9.col-md-offset-3
-            %div.eyeliner{ style: "background: url(/avatars/#{user.avatar_id}) 50% #{((DEFAULT_AVATAR_EYELINE_POSITION[user.uid] || 0.35)*100).to_i}%; background-size:cover;border-top-left-radius:5px;border-top-right-radius:5px"}
+            %div.eyeliner{ style: "background: url(/avatars/#{user.avatar_id}) 50% #{((user.avatar.eyeline || 0.35)*100).to_i}%; background-size:cover;border-top-left-radius:5px;border-top-right-radius:5px"}
       - if p = user.posts.last
         .row{ style: "margin-top: 1em"}
           .col-md-10.col-md-offset-1
