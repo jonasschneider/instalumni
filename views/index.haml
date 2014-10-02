@@ -38,7 +38,7 @@
   %hr
 
 .container
-  - lost_souls = User.where('uid IN (?)', SYMMETRICAL_CONNECTION_MAP[@user.uid]).select{|u|u.posts.where('created_at > ?', 1.year.ago-60.days).empty?}.first(3)
+  - lost_souls = @user.patron_for
 
   %h3 Bekannte Gesichter
   .row{ style: 'margin-top:1em;margin-bottom:1em'}

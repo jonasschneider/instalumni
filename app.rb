@@ -87,11 +87,16 @@ class User < ActiveRecord::Base
   end
 
   def firstname
+    return "Sarah" if uid == "henkensa"
     return "Nhung" if uid == "phanthsa"
     return "Raphaël" if uid == "kraifra"
     len = I18n.transliterate(name).match(/^[A-Z][a-z]*(\-[A-Z][a-z]+)?/).try(:to_s).try(:length)
     return unless len
     name[0, len]
+  end
+
+  def patron_for
+    User.where('uid IN (?)', SYMMETRICAL_CONNECTION_MAP[self.uid]).select{|u|u.posts.where('created_at > ?', 1.year.ago-60.days).empty?}.first(3)
   end
 end
 
