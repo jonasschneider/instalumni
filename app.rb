@@ -95,8 +95,12 @@ class User < ActiveRecord::Base
     name[0, len]
   end
 
-  def patron_for
+  def patrees_without_recent_post
     User.where('uid IN (?)', SYMMETRICAL_CONNECTION_MAP[self.uid]).select{|u|u.posts.where('created_at > ?', 1.year.ago-60.days).empty?}.first(3)
+  end
+
+  def patrees_without_address
+    User.where('uid IN (?)', SYMMETRICAL_CONNECTION_MAP[self.uid]).select{|u|u.posts.where('created_at > ?', 1.year.ago-60.days).empty? && !u.address.present?}.first(3)
   end
 end
 
