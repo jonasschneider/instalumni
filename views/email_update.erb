@@ -1,0 +1,29 @@
+Hallo <%= firstname %>,
+
+Es gibt Neues bei instALUMNI! Nach knapp zwei Jahren intensiver Entwicklungszeit
+kommen nun die ersten Verbesserungen.
+
+Du kannst jetzt die geschriebenen Status-Updates der anderen (und deine eigenen)
+anschauen, und die Abizeitungs-Fotos von damals begutachten.
+<% if posts.empty? %>Über ein Update von dir würden wir uns natürlich auch mal freuen ;)<% elsif posts.order('created_at DESC').first.created_at < 6.months.ago %>Und in den <%= (Time.now - posts.order('created_at DESC').first.created_at)/86400 %> Tagen nach deinem letzten Update ist bestimmt auch
+einiges passiert ;)<% end %>
+
+Das Wichtigste ist für uns aber immer noch die Sache mit den Kontaktdaten. Denn
+wenn mal was wirklich Tolles ansteht (und nicht nur Rumklicken auf einer
+Webseite), wäre es genial, wenn wir es schaffen, alle zusammenzutrommeln.
+
+À propos zusammentrommeln: Es gibt jetzt wieder einen kleinen Chat.
+Nichts großes, vielleicht einfach eine Plattform, um Ideen und Pläne für Treffen
+auszutauschen, oder auch einfach loszuwerden, was gerade auf dem Herzen liegt.
+Über die Nachrichten im Chat werden alle auf dem Laufenden gehalten.
+
+Und wo wir gerade dabei sind: Hast du noch Kontakt zu <%= patrees_without_address.map(&:firstname).join(", ").sub(/(.*), /, "\\1 oder ") %>?
+Leider sind nicht alle auf instALUMNI aktiv und manche haben noch keine Kontaktdaten
+eingetragen. Vielleicht können wir das ja nachholen.
+
+Schau doch mal vorbei. Dein persönlicher Login-Link lautet:
+
+https://instalumni.herokuapp.com/?auth_token=<%= auth_token %>
+
+Viele Grüße,
+Jonas (der instALUMNI-Roboter)

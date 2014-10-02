@@ -33,29 +33,64 @@
 
         %div.btn.btn-primary= text
 
-  .clearfix
+.container
+  .page-header#shouts
+    %h3 Neueste Nachrichten
+  %form.form-horizontal{ action: '/shouts', method: 'post', id: 'chat_form' }
+    .form-group
+      .col-sm-10
+        %input.form-control{ type: 'text', name: 'shout[body]', size: 40, maxlength: 150, id: 'chat_message' }
+      .col-sm-2
+        %input.btn.btn-default{ type: 'submit', value: 'Senden' }
 
-  %hr
+  %ul#chat
+    <script src="http://js.pusher.com/2.0/pusher.min.js"></script>
+    :javascript
+      var pusher = new Pusher('#x{Pusher.key}'); // uses your APP KEY
+      function renderMessage(msg) {
+        var a = "<li><span class=author>"+msg.author+"</span>"+
+          " <span class=time>("+msg.created_at+")</span>: "+
+          " <span class=message>"+msg.body+"</span>";
+        document.getElementById("chat").innerHTML += a
+        return a;
+      }
+
+      var thingChannel = pusher.subscribe('chat');
+      thingChannel.bind('message', function(message) {
+        var el = renderMessage(message);
+        $(el).effect("highlight", {}, 3000);
+      });
+
+      var latestMessages = JSON.parse('#{Shout.newest.reverse.map(&:client_attributes).to_json.gsub("'", "")}')
+
+      latestMessages.forEach(function(m) {
+        renderMessage(m)
+      })
+
+
 
 .container
   - lost_souls = @user.patrees_without_recent_post
+  - if lost_souls.any?
+    .page-header
+      %h3 Bekannte Gesichter
+    .row{ style: 'margin-top:1em;margin-bottom:1em'}
+      - lost_souls.each do |u|
+        .col-md-4
+          %div{ style: "background: url(/avatars/#{u.avatar_id}) 50% #{((DEFAULT_AVATAR_EYELINE_POSITION[u.uid] || 0.35)*100).to_i}%; background-size:cover; min-height: 80px; padding-top: 4em; text-align: center;-webkit-filter:saturate(0)"}
+    %p
+      == Hast du noch Kontakt zu #{lost_souls.map(&:firstname).join(", ").sub(/(.*), /, "\\1 und ")}? Ja? Klasse! Wir leider irgendwie nicht mehr&hellip; Wenn du sie mal siehst, richte doch aus, es wäre toll, wenn sie auch mal hier vorbei schauen würden.
+      %span.muted
+        Wenn sich bei jemandem die Email-Adresse geändert hat,
+        %a{ href: 'mailto:mail@jonasschneider.com'} wir regeln das!
 
-  %h3 Bekannte Gesichter
-  .row{ style: 'margin-top:1em;margin-bottom:1em'}
-    - lost_souls.each do |u|
-      .col-md-4
-        %div{ style: "background: url(/avatars/#{u.avatar_id}) 50% #{((DEFAULT_AVATAR_EYELINE_POSITION[u.uid] || 0.35)*100).to_i}%; background-size:cover; min-height: 80px; padding-top: 4em; text-align: center;-webkit-filter:saturate(0)"}
-  %p
-    == Hast du noch Kontakt zu #{lost_souls.map(&:firstname).join(", ").sub(/(.*), /, "\\1 und ")}? Ja? Klasse! Wir leider irgendwie nicht mehr&hellip; Wenn du sie mal siehst, richte doch aus, es wäre toll, wenn sie auch mal hier vorbei schauen würden.
-    %span.muted
-      Wenn sich bei jemandem die Email-Adresse geändert hat,
-      %a{ href: 'mailto:mail@jonasschneider.com'} wir regeln das!
 
-  %hr
-  .pull-right
-    %a.btn.btn-default{ href: '/all' } Alle Einträge anschauen
-  %h3
-    Was macht eigentlich...
+.container
+  .page-header
+    .pull-right
+      %a.btn.btn-default{ href: '/all' } Alle Einträge anschauen
+    %h3
+      Was macht eigentlich...
 
 
 .widecontainer.container
@@ -74,10 +109,10 @@
             %footer= p.created_at.strftime("%d.%m.%Y")
 
 .container
-  %hr
-  %h3{ style: 'margin-top:2em;'}
-    Stimmt das noch?
-    %small Umzug, Hochzeit, etc.
+  .page-header
+    %h3{ style: 'margin-top:2em;'}
+      Stimmt das noch?
+      %small Umzug, Hochzeit, etc.
 
   %dl
     %dt Adresse
