@@ -76,7 +76,14 @@ class User < ActiveRecord::Base
   end
 
   def update_subject
-    "[instALUMNI] #{firstname}, wo sind eigentlich #{patrees_without_address.map(&:firstname).join(", ").sub(/(.*), /, "\\1 und ")}?"
+    names = (patrees_without_address+patrees_without_recent_post).uniq.map(&:firstname).first(3)
+    if names.length > 1
+      "[instALUMNI] #{firstname}, wo sind eigentlich #{names.join(", ").sub(/(.*), /, "\\1 und ")}?"
+    elsif names.length == 1
+      "[instALUMNI] #{firstname}, wo ist eigentlich #{names.first}?"
+    else
+      "[instALUMNI] #{firstname}, der Awesome-Modus wurde aktiviert!"
+    end
   end
 
   geocoded_by :geocode_address
