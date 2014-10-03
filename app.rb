@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
   end
 
   def update_subject
-    names = (patrees_without_address+patrees_without_recent_post).uniq.map(&:firstname).first(3)
+    names = (patrees_without_address+patrees_without_recent_post).map(&:firstname).uniq.first(3)
     if names.length > 1
       "[instALUMNI] #{firstname}, wo sind eigentlich #{names.join(", ").sub(/(.*), /, "\\1 und ")}?"
     elsif names.length == 1
