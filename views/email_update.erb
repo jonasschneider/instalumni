@@ -5,12 +5,12 @@ kommen nun die ersten Verbesserungen.
 
 Du kannst jetzt die geschriebenen Status-Updates der anderen (und deine eigenen)
 anschauen, und die Abizeitungs-Fotos von damals begutachten.
-<% if posts.empty? %>Über ein Update von dir würden wir uns natürlich auch mal freuen ;)<% elsif posts.order('created_at DESC').first.created_at < 6.months.ago %>Und in den <%= (Time.now - posts.order('created_at DESC').first.created_at)/86400 %> Tagen nach deinem letzten Update ist bestimmt auch
+<% if posts.blank? %>Über ein Update von dir würden wir uns natürlich auch mal freuen ;)<% elsif posts.order('created_at DESC').first.created_at < 6.months.ago %>Und in den <%= (Time.now - posts.order('created_at DESC').first.created_at)/86400 %> Tagen nach deinem letzten Update ist bestimmt auch
 einiges passiert ;)<% end %>
 
 Das Wichtigste ist für uns aber immer noch die Sache mit den Kontaktdaten. Denn
 wenn mal was wirklich Tolles ansteht (und nicht nur Rumklicken auf einer
-Webseite), wäre es genial, wenn wir es schaffen, alle zusammenzutrommeln.<% if address.empty? %>
+Webseite), wäre es genial, wenn wir es schaffen, alle zusammenzutrommeln.<% if address.blank? %>
 Wäre super, wenn du bei Gelegenheit auch deine Adresse eintragen würdest.<% end %>
 
 À propos zusammentrommeln: Es gibt jetzt wieder einen kleinen Chat.

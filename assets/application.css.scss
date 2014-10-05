@@ -71,8 +71,8 @@ dd { margin-left: 1em; }
 }
 
 .open .eyeliner {
-  -webkit-filter: none !important;
-  filter: none !important;
+  -webkit-filter: saturate(1) brightness(0.8) !important;
+  filter: saturate(1) brightness(0.8) !important;
 }
 
 .profile {
