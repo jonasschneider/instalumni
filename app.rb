@@ -212,6 +212,20 @@ get "/avatars/:id" do
   a.ugly_image
 end
 
+get "/my_avatar/edit" do
+  haml :upload
+end
+
+put "/my_avatar" do
+  img = params[:image][:tempfile].read.force_encoding('BINARY')
+
+  a = Avatar.create!(image: img, ugly_image: img, eyeline: Float(params[:eyeline]))
+  @user.avatar = a
+  @user.save!
+  flash[:info] = "Dein Bild wurde gespeichert!"
+  redirect '/'
+end
+
 post '/posts' do
   post = @user.posts.build(params[:post].slice(:body))
   if post.save
