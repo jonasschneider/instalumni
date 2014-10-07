@@ -70,6 +70,12 @@ class User < ActiveRecord::Base
     Pony.mail(:to => self.email, :from => 'js.sokrates@gmail.com', :subject => subject, :body => body)
   end
 
+  def send_update!
+    return if email.nil? or email.blank?
+
+    Pony.mail(:to => self.email, :from => 'js.sokrates@gmail.com', :subject => update_subject, :body => update_body)
+  end
+
   def update_body
     template = File.read(File.join(settings.views, 'email_update.erb'))
     body = ERB.new(template).result(self.instance_eval { binding })
