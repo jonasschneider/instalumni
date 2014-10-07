@@ -4,8 +4,8 @@ Es gibt Neues bei instALUMNI! Nach knapp zwei Jahren intensiver Entwicklungszeit
 kommen nun die ersten Verbesserungen.
 
 Du kannst jetzt die geschriebenen Status-Updates der anderen (und deine eigenen)
-anschauen, die Abizeitungs-Fotos von damals begutachten, und neue Fotos hochladen.
-<% if posts.blank? %>Über ein Update von dir würden wir uns natürlich auch mal freuen ;)<% elsif posts.order('created_at DESC').first.created_at < 6.months.ago %>Und in den <%= (Time.now - posts.order('created_at DESC').first.created_at)/86400 %> Tagen nach deinem letzten Update ist bestimmt auch
+anschauen, die Abizeitungs-Fotos von damals begutachten, und neue Fotos hochladen.<% if posts.blank? %>
+Über ein Update von dir würden wir uns natürlich auch mal freuen ;)<% elsif posts.order('created_at DESC').first.created_at < 6.months.ago %>Und in den <%= (Time.now - posts.order('created_at DESC').first.created_at)/86400 %> Tagen nach deinem letzten Update ist bestimmt auch
 einiges passiert ;)<% end %>
 
 Das Wichtigste ist für uns aber immer noch die Sache mit den Kontaktdaten. Denn
