@@ -18,9 +18,9 @@ Nichts großes, vielleicht einfach ein Ort, um Ideen und Pläne für Treffen
 auszutauschen, oder auch einfach loszuwerden, was dir gerade auf dem Herzen liegt.
 Über die Nachrichten im Chat werden alle per Mail auf dem Laufenden gehalten.
 
-Und wo wir gerade dabei sind: Hast du noch Kontakt zu <%= patrees_without_address.map(&:firstname).join(", ").sub(/(.*), /, "\\1 oder ") %>?
+<% unless patrees_without_address.empty? %>Und wo wir gerade dabei sind: Hast du noch Kontakt zu <%= patrees_without_address.map(&:firstname).join(", ").sub(/(.*), /, "\\1 oder ") %>?
 Leider sind nicht alle auf instALUMNI aktiv und manche haben noch keine Kontaktdaten
-eingetragen. Vielleicht können wir das ja nachholen.
+eingetragen. Vielleicht können wir das ja nachholen.<% end %>
 
 Schau doch mal vorbei. Dein persönlicher Login-Link lautet:
 
