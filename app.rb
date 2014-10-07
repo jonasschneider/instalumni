@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
   def send_reminder!
     return if email.nil? or email.blank?
 
-    template = File.read(File.join(settings.views, 'email_reminder.erb'))
+    template = File.read(File.join(Sinatra::Application.settings.views, 'email_reminder.erb'))
     body = ERB.new(template).result(self.instance_eval { binding })
     subject = "[instALUMNI] Halbjährliche Erinnerung: Dein Fichte-Alumniportal!"
     Pony.mail(:to => self.email, :from => 'js.sokrates@gmail.com', :subject => subject, :body => body)
@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
   def send_welcome!
     return if email.nil? or email.blank?
 
-    template = File.read(File.join(settings.views, 'email_welcome.erb'))
+    template = File.read(File.join(Sinatra::Application.settings.views, 'email_welcome.erb'))
     body = ERB.new(template).result(self.instance_eval { binding })
     subject = "[instALUMNI] Dein Fichte-Alumniportal instALUMNI startet!"
     Pony.mail(:to => self.email, :from => 'js.sokrates@gmail.com', :subject => subject, :body => body)
@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
   end
 
   def update_body
-    template = File.read(File.join(settings.views, 'email_update.erb'))
+    template = File.read(File.join(Sinatra::Application.settings.views, 'email_update.erb'))
     body = ERB.new(template).result(self.instance_eval { binding })
   end
 
