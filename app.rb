@@ -233,12 +233,12 @@ put "/my_avatar" do
 end
 
 post '/posts' do
-  post = @user.posts.build(params[:post].slice(:body))
+  post = @user.posts.build(params["post"].slice("body"))
   if post.save
     flash[:info] = 'Dein Eintrag wurde gespeichert.'
     redirect '/'
   else
-    flash[:error] = 'Dein Eintrag konnte nicht gespeichert werden. Falls das Problem besteht, wende dich an uns.'
+    flash[:error] = 'Dein Eintrag konnte nicht gespeichert werden. Falls das Problem bestehen bleibt, wende dich an uns.'
     redirect '/'
   end
 end

@@ -22,16 +22,25 @@
 
     .row
       .col-md-10.col-md-offset-1{ style: "margin-top: 1em;margin-bottom:2em"}
-        - if p = user.posts.last
-          - text = "Etwas Neues schreiben"
-          %blockquote<
-            = p.body
-            %footer= p.created_at.strftime("%d.%m.%Y")
-        - else
-          - text = "Was Tolleres hier hin schreiben"
-          %blockquote.muted{ style: 'opacity: 0.5'}< Mr. und Mrs. Dursley im Ligusterweg Nummer 4 waren stolz darauf, ganz und gar normal zu sein, sehr stolz sogar.
+        #display
+          - if p = user.posts.last
+            - text = "Etwas Neues schreiben"
+            %blockquote<
+              = p.body
+              %footer= p.created_at.strftime("%d.%m.%Y")
+          - else
+            - text = "Was Tolleres hier hin schreiben"
+            %blockquote.muted{ style: 'opacity: 0.5'}< Mr. und Mrs. Dursley im Ligusterweg Nummer 4 waren stolz darauf, ganz und gar normal zu sein, sehr stolz sogar.
 
-        %div.btn.btn-primary= text
+          %div.btn.btn-primary{ onclick: 'document.getElementById("display").style.display="none";document.getElementById("form").style.display="block";'}= text
+        #form{ style: 'display: none'}
+          %h3 Neuer Status
+          %form{ action: '/posts', method: 'post' }
+            %textarea.form-control{ name: 'post[body]', style: 'width: 100%;box-sizing:border-box', cols: 100, rows: 3 }
+            %br
+
+            %input.btn.btn-primary{ type: 'submit', value: 'Speichern' }
+
 
 .container
   .page-header#shouts
