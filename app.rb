@@ -203,7 +203,9 @@ get '/edit' do
 end
 
 post '/update' do
-  if @user.update_attributes(params[:user].slice(:name, :address, :zip_city, :country, :phone, :email, :custom1_name, :custom1_value, :custom2_name, :custom2_value, :public_address))
+  p = ActiveSupport::HashWithIndifferentAccess.new(params)
+
+  if @user.update(p[:user].slice(:name, :address, :zip_city, :country, :phone, :email, :custom1_name, :custom1_value, :custom2_name, :custom2_value, :public_address))
     flash[:info] = 'Deine Kontaktdaten wurden gespeichert.'
     redirect '/'
   else
